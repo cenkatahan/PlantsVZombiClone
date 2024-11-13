@@ -6,9 +6,23 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private new Rigidbody2D rigidbody2D;
 
+    private void OnEnable()
+    {
+        ProjectileCollision.OnHitEnemy += Die;
+    }
+
+    private void OnDisable()
+    {
+        ProjectileCollision.OnHitEnemy -= Die;
+    }
+
     private void Update()
     {
         rigidbody2D.linearVelocity = transform.right * speed;
-        
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }

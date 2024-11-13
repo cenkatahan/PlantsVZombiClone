@@ -20,7 +20,7 @@ public class Turret : MonoBehaviour
     }
 
     // ReSharper disable once FunctionRecursiveOnAllPaths
-    public IEnumerator Shoot()
+    private IEnumerator Shoot()
     {
         yield return new WaitForSeconds(2f);
         var projectile = Instantiate(projectilePrefab, spawnPosition.position, projectilePrefab.transform.rotation);
@@ -29,4 +29,3 @@ public class Turret : MonoBehaviour
         Destroy(projectile);
     }
 }
-
