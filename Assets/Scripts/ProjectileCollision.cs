@@ -7,7 +7,6 @@ public class ProjectileCollision : MonoBehaviour
     // [SerializeField] private UnityEvent OnEnemyHitemyHit;
 
     public delegate void OnHit();
-
     public static event OnHit OnHitEnemy;
     
     private void OnCollisionEnter2D(Collision2D other)

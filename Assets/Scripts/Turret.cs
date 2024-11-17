@@ -14,18 +14,39 @@ public class Turret : MonoBehaviour
     //     StartCoroutine(Shoot());
     // }
 
+    private void OnEnable()
+    {
+        WaveManager.OnWaveComplete += StopTurret;
+    }
+
+    private void OnDisable()
+    {
+        WaveManager.OnWaveComplete -= StopTurret;
+    }
+
     public void Fire()
     {
-        StartCoroutine(Shoot());
+        // StartCoroutine(Shoot());
+        Shoot();
+    }
+
+    private void Shoot()
+    {
+        Instantiate(projectilePrefab, spawnPosition.position, projectilePrefab.transform.rotation);
     }
 
     // ReSharper disable once FunctionRecursiveOnAllPaths
-    private IEnumerator Shoot()
+    private IEnumerator Shooxt()
     {
-        yield return new WaitForSeconds(2f);
+        // yield return new WaitForSeconds(2f);
         var projectile = Instantiate(projectilePrefab, spawnPosition.position, projectilePrefab.transform.rotation);
-        StartCoroutine(Shoot());
-        yield return new WaitForSeconds(4f);
+        // StartCoroutine(Shoot());
+        yield return new WaitForSeconds(2f);
         Destroy(projectile);
+    }
+
+    private void StopTurret()
+    {
+        StopAllCoroutines();
     }
 }
