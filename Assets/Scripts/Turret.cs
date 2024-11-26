@@ -1,18 +1,12 @@
-using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Turret : MonoBehaviour
 {
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform spawnPosition;
-    [SerializeField] private float timer = 5f;
 
-    // private void Start()
-    // {
-    //     StartCoroutine(Shoot());
-    // }
+    [SerializeField] private float fireRate = .5f;
+    private float _nextFire;
 
     private void OnEnable()
     {
@@ -26,23 +20,14 @@ public class Turret : MonoBehaviour
 
     public void Fire()
     {
-        // StartCoroutine(Shoot());
+        if (!(Time.time >= _nextFire)) return;
+        _nextFire = Time.time + fireRate;
         Shoot();
     }
 
     private void Shoot()
     {
         Instantiate(projectilePrefab, spawnPosition.position, projectilePrefab.transform.rotation);
-    }
-
-    // ReSharper disable once FunctionRecursiveOnAllPaths
-    private IEnumerator Shooxt()
-    {
-        // yield return new WaitForSeconds(2f);
-        var projectile = Instantiate(projectilePrefab, spawnPosition.position, projectilePrefab.transform.rotation);
-        // StartCoroutine(Shoot());
-        yield return new WaitForSeconds(2f);
-        Destroy(projectile);
     }
 
     private void StopTurret()
